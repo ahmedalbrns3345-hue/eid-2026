@@ -1,85 +1,234 @@
-<style>
-    .countdown-container {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin: 20px 0;
-    }
-    .time-box {
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid var(--gold);
-        padding: 10px;
-        border-radius: 8px;
-        min-width: 60px;
-        text-align: center;
-    }
-    .time-num {
-        display: block;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--gold);
-    }
-    .time-label {
-        font-size: 0.7rem;
-        color: #aaa;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة عيد الفطر | أحمد خالد</title>
+    
+    <!-- الخط العثماني والخطوط الفاخرة -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #f3cf7a;
+            --deep-purple: #1a0621;
+            --royal-purple: #3d154d;
+            --soft-gold: rgba(243, 207, 122, 0.4);
+        }
 
+        body {
+            margin: 0; padding: 0;
+            background: var(--deep-purple);
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* خلفية السماء والنجوم */
+        #star-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, var(--royal-purple) 0%, var(--deep-purple) 100%);
+        }
+
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            animation: twinkle var(--d) infinite ease-in-out;
+        }
+        @keyframes twinkle { 
+            0%, 100% { opacity: 0.2; transform: scale(0.7); } 
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; } 
+        }
+
+        /* الأهلة المتحركة */
+        .moon {
+            position: fixed; color: var(--soft-gold); font-size: 2rem;
+            pointer-events: none; z-index: -1;
+            animation: moonFlow var(--d) infinite linear;
+        }
+        @keyframes moonFlow {
+            0% { transform: translateY(110vh) rotate(-20deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container { width: 92%; max-width: 750px; text-align: center; padding: 40px 10px; z-index: 2; }
+
+        header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(3rem, 10vw, 4.8rem);
+            margin: 0;
+            background: linear-gradient(to bottom, #ffffff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(243, 207, 122, 0.5));
+        }
+
+        .sender-name { 
+            font-size: 1.6rem; 
+            color: #fff; 
+            text-shadow: 0 0 8px var(--gold); 
+            margin-bottom: 30px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: bold;
+        }
+
+        /* البطاقة الزجاجية */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(243, 207, 122, 0.2);
+            border-radius: 35px; padding: 40px; margin-top: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .glass-card::before {
+            content: "🌙";
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 2rem; opacity: 0.4;
+        }
+
+        .long-greeting { 
+            font-size: 1.4rem; 
+            line-height: 2.2; 
+            text-align: justify; 
+            color: #fdfdfd; 
+            margin-bottom: 35px; 
+        }
+
+        /* صندوق إرسال الرسالة للواتساب */
+        .msg-box { 
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(243, 207, 122, 0.3); 
+            padding: 30px; 
+            border-radius: 25px;
+            margin-top: 40px;
+        }
+
+        .msg-box h3 { 
+            font-family: 'Aref Ruqaa', serif; 
+            font-size: 1.8rem; 
+            margin-top: 0;
+            color: var(--gold);
+        }
+        
+        input, textarea {
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(243, 207, 122, 0.5);
+            border-radius: 12px; color: white; padding: 15px; margin-bottom: 15px;
+            font-family: 'Tajawal', sans-serif; font-size: 1.1rem; box-sizing: border-box; outline: none;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(243, 207, 122, 0.3); }
+
+        textarea { height: 120px; resize: none; }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f3cf7a 100%);
+            color: #1a0621; border: none; padding: 18px; border-radius: 12px;
+            font-weight: bold; width: 100%; cursor: pointer; font-size: 1.2rem;
+            transition: 0.3s; font-family: 'Tajawal', sans-serif;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); }
+
+        footer { margin: 50px 0 30px; opacity: 0.6; font-size: 1rem; text-align: center; font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
 <body>
 
-    <div class="header">
-        <h1>عيد فطر مبارك</h1>
-        <p>العد التنازلي لاستقبال العيد 🌙</p>
-        
-        <div class="countdown-container" id="countdown">
-            <div class="time-box"><span class="time-num" id="days">00</span><span class="time-label">يوم</span></div>
-            <div class="time-box"><span class="time-num" id="hours">00</span><span class="time-label">ساعة</span></div>
-            <div class="time-box"><span class="time-num" id="minutes">00</span><span class="time-label">دقيقة</span></div>
-            <div class="time-box"><span class="time-num" id="seconds">00</span><span class="time-label">ثانية</span></div>
-        </div>
-    </div>
+    <div id="star-layer"></div>
 
-    <div class="card">
-        <h3 style="color: var(--gold);">📝 مفكرة العيد | Ahmed AI</h3>
-        <textarea id="noteInput" placeholder="اكتب هنا خططك للعيد أو ذكرياتك..."></textarea>
-        <button class="btn-save" onclick="saveNote()">حفظ الملاحظة</button>
-        <p id="status" style="font-size: 0.8rem; text-align: center; color: var(--gold); margin-top: 10px;"></p>
+    <div class="container">
+        <header>
+            <h1>عيد فطر مبارك</h1>
+            <div class="sender-name">من: أحمد خالد</div>
+        </header>
+
+        <div class="glass-card">
+            <!-- التهنئة العامة بدون ذكر الاسم بداخلها -->
+            <p class="long-greeting">
+                إلى كل الأحبة والأصدقاء، مع إشراقة شمس العيد السعيد، يطيب لي أن أهديكم أصدق الدعوات وأزكى التهاني. تقبل الله منا ومنكم الصيام والقيام وصالح الأعمال، وضاعف لنا جميعاً الأجر والمثوبة. عاد العيد ليملأ بيوتنا بالبهجة وقلوبنا بالمودة، فكل عام وأنتم إلى الله أقرب، وكل عام وأرواحكم ترفرف في فضاءات السعادة والرضا. عساكم من عواده، وجعل الله أيامكم كلها أعياداً ومسرات.
+            </p>
+
+            <!-- قسم إرسال التهنئة المضمون 100% -->
+            <div class="msg-box">
+                <h3>شاركني فرحة العيد ✉️</h3>
+                <p style="font-family: 'Tajawal', sans-serif; color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">
+                    اكتب تهنئتك وسيسعدني جداً استقبالها مباشرة على الواتساب.
+                </p>
+                
+                <input type="text" id="userName" placeholder="اكتب اسمك الكريم هنا...">
+                <textarea id="userText" placeholder="اكتب رسالتك، تهنئتك، أو دعاءك هنا..."></textarea>
+                
+                <button class="submit-btn" onclick="sendToWhatsApp()">
+                    <span>إرسال التهنئة الآن</span>
+                    <span style="font-size: 1.4rem;">✨</span>
+                </button>
+            </div>
+        </div>
+
+        <footer>
+            كل عام وأنتم بخير &copy; 2026 | أحمد خالد
+        </footer>
     </div>
 
     <script>
-        // تحديد تاريخ العيد المتوقع (20 مارس 2026)
-        const eidDate = new Date("March 20, 2026 00:00:00").getTime();
+        // 🌟 إنشاء النجوم المتلألئة
+        const layer = document.getElementById('star-layer');
+        for (let i = 0; i < 150; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const size = Math.random() * 3 + 1;
+            s.style.width = s.style.height = `${size}px`;
+            s.style.left = `${Math.random() * 100}%`;
+            s.style.top = `${Math.random() * 100}%`;
+            s.style.setProperty('--d', `${Math.random() * 4 + 2}s`);
+            layer.appendChild(s);
+        }
 
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = eidDate - now;
+        // 🌙 إنشاء الأهلة المتحركة
+        setInterval(() => {
+            const m = document.createElement('div');
+            m.className = 'moon'; m.innerHTML = '🌙';
+            m.style.left = `${Math.random() * 90}%`;
+            m.style.setProperty('--d', `${Math.random() * 15 + 10}s`);
+            document.body.appendChild(m);
+            setTimeout(() => m.remove(), 25000);
+        }, 3000);
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<h2 style='color:var(--gold)'>عيد سعيد! 🎉</h2>";
+        // ✉️ دالة الإرسال إلى الواتساب (مضمونة 100%)
+        function sendToWhatsApp() {
+            const name = document.getElementById('userName').value.trim();
+            const text = document.getElementById('userText').value.trim();
+            
+            if(!name || !text) {
+                alert("فضلاً يا غالي اكتب اسمك ورسالتك قبل الإرسال 🌹");
+                return;
             }
-        }, 1000);
 
-        // تحميل وحفظ الملاحظات (نفس الكود السابق)
-        window.onload = function() {
-            const savedNote = localStorage.getItem('eid_note_2026');
-            if (savedNote) document.getElementById('noteInput').value = savedNote;
-        };
-
-        function saveNote() {
-            localStorage.setItem('eid_note_2026', document.getElementById('noteInput').value);
-            document.getElementById('status').innerText = "تم الحفظ بنجاح! ✅";
-            setTimeout(() => { document.getElementById('status').innerText = ""; }, 3000);
+            // ==============================================
+            // ⚠️ هام جداً يا أحمد: قم بتغيير هذا الرقم إلى رقم الواتساب الخاص بك 
+            // يجب أن يبدأ بكود الدولة (مثال لمصر: 201xxxxxxxxx) بدون علامة +
+            // ==============================================
+            const phoneNumber = "201145646515"; 
+            
+            // تجهيز نص الرسالة
+            const whatsappMessage = `*تهنئة عيد الفطر* 🌙✨%0A%0A*من:* ${name}%0A*الرسالة:* ${text}`;
+            
+            // فتح الواتساب
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+            window.open(whatsappUrl, '_blank');
         }
     </script>
 </body>
+</html>
+
+
