@@ -1,403 +1,228 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تهنئة عيد الفطر | أحمد خالد</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>دكتور أحمد | المنصة الطبيه </title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;600;800&display=swap');
+
         :root {
-            --gold: #f3cf7a;
-            --dark-gold: #c5a059;
-            --black: #000000;
-            --deep-black: #080808;
-            --soft-gold: rgba(243, 207, 122, 0.3);
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(243, 207, 122, 0.2);
-            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --medical-blue: #0ea5e9;
+            --deep-navy: #020617;
+            --glass-bg: rgba(15, 23, 42, 0.85);
         }
 
         body {
-            margin: 0; padding: 0;
-            background: var(--deep-black);
-            color: var(--gold);
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: var(--deep-navy);
+            color: #f1f5f9;
+            margin: 0;
             overflow-x: hidden;
-            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(124, 58, 237, 0.08) 0%, transparent 30%);
         }
 
-        /* زخرفة إسلامية هندسية في الخلفية */
-        body::before {
-            content: "";
+        /* شبكة تكنولوجية خلفية */
+        .tech-grid {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><g fill="%23f3cf7a" fill-opacity="0.03"><path d="M0 0h80v80H0z"/><path d="M40 0l40 40-40 40L0 40 40 0zm0 10L10 40l30 30 30-30-30-30zm0 10l20 20-20 20-20-20 20-20z"/></g></svg>');
-            background-size: 80px 80px;
-        }
-
-        /* حاوية النجوم الثابتة */
-        #star-layer {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            inset: 0;
+            background-image: linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -1;
         }
 
-        .star {
-            position: absolute; background: white; border-radius: 50%;
-            animation: twinkle var(--d) infinite ease-in-out;
-        }
-        @keyframes twinkle { 
-            0%, 100% { opacity: 0.1; transform: scale(0.6); } 
-            50% { opacity: 0.8; transform: scale(1.1); box-shadow: 0 0 10px white; } 
-        }
-
-        /* الأهلة المتحركة (تظهر بعد الكشف) */
-        .moon-particle {
-            position: fixed; color: var(--soft-gold); font-size: 1.8rem;
-            pointer-events: none; z-index: -1; opacity: 0;
-            transition: opacity 1s ease;
-        }
-        .revealed .moon-particle { opacity: 1; animation: moonFlow var(--d) infinite linear; }
-
-        @keyframes moonFlow {
-            0% { transform: translateY(110vh) rotate(-20deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
+        /* حاوية الصورة المتطورة */
+        .medical-avatar-wrap {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto;
         }
 
-        .container { 
-            width: 92%; max-width: 800px; text-align: center; padding: 40px 10px; z-index: 2; 
-            transition: var(--transition);
+        .pulse-ring {
+            position: absolute;
+            inset: -10px;
+            border: 2px solid var(--medical-blue);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse-border 3s infinite;
         }
 
-        header h1 {
-            font-family: 'Aref Ruqaa', serif;
-            font-size: clamp(3rem, 11vw, 5.5rem);
-            margin: 0;
-            background: linear-gradient(to bottom, #ffffff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(243, 207, 122, 0.6));
+        @keyframes pulse-border {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 0; }
         }
 
-        .sender-name { 
-            font-size: 1.8rem; 
-            color: #fff; 
-            text-shadow: 0 0 10px var(--gold); 
-            margin-bottom: 20px;
-            font-family: 'Aref Ruqaa', serif;
-            font-weight: bold;
+        .main-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #1e293b;
+            box-shadow: 0 0 50px rgba(14, 165, 233, 0.2);
+            z-index: 5;
+            position: relative;
         }
 
-        /* البطاقة الزجاجية - مخفية في البداية */
-        .glass-card {
+        /* لوحة التحكم الزجاجية */
+        .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 2px solid var(--gold);
-            border-radius: 40px; padding: 50px 40px; margin-top: 10px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.8), inset 0 0 20px rgba(243, 207, 122, 0.2);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 48px;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 4px 12px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: #10b981;
+        }
+
+        .nav-link-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link-card:hover {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: var(--medical-blue);
+            transform: scale(1.02);
+        }
+
+        /* زر الاتصال السريع */
+        .emergency-btn {
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
             position: relative;
             overflow: hidden;
-            opacity: 0; transform: translateY(50px) scale(0.9);
-            transition: var(--transition);
         }
 
-        .revealed .glass-card {
-            opacity: 1; transform: translateY(0) scale(1);
+        .emergency-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: sweep 4s infinite;
         }
 
-        /* زخارف ذهبية زجاجية */
-        .glass-card::before, .glass-card::after {
-            content: "✨"; position: absolute; font-size: 2rem; opacity: 0.3;
+        @keyframes sweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
         }
-        .glass-card::before { top: 20px; right: 20px; }
-        .glass-card::after { bottom: 20px; left: 20px; }
-
-        .greeting-title {
-            font-family: 'Aref Ruqaa', serif;
-            font-size: 2.2rem;
-            color: var(--gold);
-            border-bottom: 2px solid var(--soft-gold);
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-
-        .long-greeting { 
-            font-size: 1.5rem; 
-            line-height: 2.3; 
-            text-align: justify; 
-            color: #fdfdfd; 
-            margin-bottom: 35px; 
-            font-family: 'Amiri', serif;
-        }
-
-        .tips-section {
-            background: rgba(243, 207, 122, 0.1);
-            padding: 25px; border-radius: 20px; border-right: 6px solid var(--gold);
-            text-align: right; margin-bottom: 50px;
-        }
-        .tips-section h3 { font-family: 'Aref Ruqaa', serif; color: var(--gold); margin-top: 0; font-size: 1.8rem; }
-        .tips-section ul { list-style: none; padding: 0; margin: 0; }
-        .tips-section li { font-size: 1.25rem; margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-start; }
-        .tips-section li::before { content: "🔹"; color: var(--gold); font-size: 1rem; margin-top: 3px; }
-
-        /* صندوق إرسال الرسالة للواتساب */
-        .msg-box { 
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px dashed rgba(243, 207, 122, 0.4); 
-            padding: 35px; 
-            border-radius: 30px;
-            margin-top: 50px;
-        }
-
-        .msg-box h3 { 
-            font-family: 'Aref Ruqaa', serif; 
-            font-size: 2rem; 
-            margin-top: 0;
-            color: var(--gold);
-        }
-        
-        input, textarea {
-            width: 100%; background: rgba(0,0,0,0.6); border: 2px solid rgba(243, 207, 122, 0.5);
-            border-radius: 15px; color: white; padding: 18px; margin-bottom: 18px;
-            font-family: 'Tajawal', sans-serif; font-size: 1.15rem; box-sizing: border-box; outline: none;
-            transition: 0.3s;
-        }
-        input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(243, 207, 122, 0.4); }
-
-        textarea { height: 140px; resize: none; }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #d4af37 0%, #f3cf7a 100%);
-            color: #1a0621; border: none; padding: 20px; border-radius: 15px;
-            font-weight: bold; width: 100%; cursor: pointer; font-size: 1.3rem;
-            transition: 0.3s; font-family: 'Tajawal', sans-serif;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-        }
-        .submit-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.6); }
-
-        /* زر الكشف الخرافي */
-        #reveal-btn {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #d4af37 0%, #f3cf7a 100%);
-            color: var(--black);
-            border: 5px solid var(--black);
-            padding: 25px 50px;
-            border-radius: 50px;
-            font-size: 2rem;
-            font-family: 'Aref Ruqaa', serif;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8), 0 0 0 10px rgba(212, 175, 55, 0.1);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        #reveal-btn:hover { transform: translate(-50%, -52%) scale(1.05); }
-        #reveal-btn.clicked {
-            opacity: 0; transform: translate(-50%, -50%) scale(0.2); pointer-events: none;
-        }
-
-        /* جزيئات الانفجار الخرافية */
-        #explosion-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 99;
-        }
-        .explosion-particle {
-            position: absolute; border-radius: 50%;
-            pointer-events: none;
-            opacity: 0; animation: explode var(--d) forwards;
-        }
-
-        @keyframes explode {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            5% { opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(var(--s)); opacity: 0; }
-        }
-
-        footer { 
-            margin: 60px 0 30px; opacity: 0.7; font-size: 1.1rem; text-align: center; 
-            font-family: 'Amiri', serif;
-        }
-        .revealed footer { opacity: 1; }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-8">
 
-    <div id="star-layer"></div>
-    <div id="explosion-container"></div>
+    <div class="tech-grid"></div>
 
-    <button id="reveal-btn" onclick="revealPage()">عيد مبارك ✨</button>
-
-    <div class="container">
-        <header>
-            <h1>عيد فطر مبارك</h1>
-            <div class="sender-name">من: أحمد خالد</div>
-        </header>
-
-        <div class="glass-card">
-            <h2 class="greeting-title">رسالة المودة ✉️</h2>
-            <p class="long-greeting">
-                كل عام وأنت بخير بمناسبة عيد الفطر المبارك 🌙
-أسأل الله أن يعيده عليك بالخير واليُمن والبركات، وأن يتقبل منك الصيام والقيام، ويجعل أيامك مليئة بالفرح والرضا.
-عيد سعيد عليك وعلى أسرتك، وتقبل الله منا ومنكم صالح الأعمال.
-            </p> 
-
-            <div class="tips-section">
-                <h3> نصائح 🌜</h3>
-                <ul>
-                    <li>صلة الرحم هي روح العيد، فابدأ بأهلك.</li>
-                    <li>العفو يطهر القلب، فاجعله صفحة جديدة.</li>
-                    <li>أدخل السرور على كل طفل، فهم زينة العيد.</li>
-                    <li>اشكر الله على النعمة، فالشكر يزيدها.</li>
-                    <li>استمتع بكل لحظة، فالعيد فرحة لا تتكرر.</li>
-                </ul>
+    <div class="max-w-5xl w-full grid lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- الجهة اليمنى: الهوية البصرية -->
+        <div class="text-center lg:text-right space-y-6">
+            <div class="medical-avatar-wrap">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring" style="animation-delay: 1.5s"></div>
+                <img src="image.png" alt="دكتور أحمد" class="main-img">
             </div>
-
-            <div class="msg-box">
-                <h3>شاركني فرحة العيد 🖋️</h3>
-                <p style="font-family: 'Tajawal', sans-serif; color: #ccc; font-size: 1rem; margin-bottom: 25px;">
-                    اكتب تهنئتك وسأتشرف جداً باستلامها مباشرة على الواتساب.
+            
+            <div class="space-y-4">
+                <div class="status-badge">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    01145646515
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white">د. أحمد <span class="text-sky-500">خالد</span></h1>
+                <p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-xl lg:ml-0 lg:mr-auto">
+                    رؤية طبية متطورة.
                 </p>
-                
-                <input type="text" id="userName" placeholder="اسمك الكريم...">
-                <textarea id="userText" placeholder="اكتب تهنئتك أو رسالتك هنا يا غالي..."></textarea>
-                
-                <button class="submit-btn" onclick="sendToWhatsApp()">
-                    <span>إرسال التهنئة الآن</span>
-                    <span style="font-size: 1.6rem;">✨</span>
-                </button>
             </div>
         </div>
 
-        <footer>
-            جميع الحقوق محفوظة &copy; 2026 | أحمد خالد
-        </footer>
+        <!-- الجهة اليسرى: بوابة التواصل -->
+        <div class="glass-panel p-8 md:p-12 space-y-6">
+            <h2 class="text-xl font-bold text-sky-400 mb-8 flex items-center gap-3">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+                بوابة التواصل الرقمية
+            </h2>
+            
+            <div class="grid gap-4">
+                <!-- واتساب -->
+                <a href="https://wa.me/201145646515" target="_blank" class="nav-link-card p-5 rounded-3xl flex items-center gap-6 group">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="message-circle" class="w-7 h-7"></i>
+                    </div>
+                    <div class="text-right flex-1">
+                        <div class="text-white font-bold text-lg">استشارة واتساب</div>
+                        <div class="text-slate-500 text-sm">تواصل مباشر وسريع</div>
+                    </div>
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-slate-700 group-hover:text-sky-500 transition-colors"></i>
+                </a>
+
+                <!-- إنستجرام -->
+                <a href="https://www.instagram.com/dr_ahmed__khaled?igsh=MTRiYzY4MzVxZHM0cA==" target="_blank" class="nav-link-card p-5 rounded-3xl flex items-center gap-6 group">
+                    <div class="w-14 h-14 bg-pink-500/10 rounded-2xl flex items-center justify-center text-pink-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="instagram" class="w-7 h-7"></i>
+                    </div>
+                    <div class="text-right flex-1">
+                        <div class="text-white font-bold text-lg">المحتوى الطبي</div>
+                        <div class="text-slate-500 text-sm">نصائح ومعلومات يومية</div>
+                    </div>
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-slate-700 group-hover:text-sky-500 transition-colors"></i>
+                </a>
+
+                <!-- فيسبوك -->
+                <a href="https://www.facebook.com/share/18EngTLqdj/" target="_blank" class="nav-link-card p-5 rounded-3xl flex items-center gap-6 group">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="facebook" class="w-7 h-7"></i>
+                    </div>
+                    <div class="text-right flex-1">
+                        <div class="text-white font-bold text-lg">المجتمع الطبي</div>
+                        <div class="text-slate-500 text-sm">أحدث الأخبار والفعاليات</div>
+                    </div>
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-slate-700 group-hover:text-sky-500 transition-colors"></i>
+                </a>
+            </div>
+
+            <!-- زر الاتصال السريع -->
+            <div class="pt-6">
+                <a href="tel:01145646515" class="emergency-btn w-full py-6 rounded-3xl flex items-center justify-center gap-4 text-white font-extrabold text-xl transition-all transform hover:-translate-y-1 active:scale-95">
+                    <i data-lucide="phone-forwarded" class="w-6 h-6 animate-pulse"></i>
+                    حجز فوري
+                </a>
+            </div>
+
+            <div class="flex justify-between items-center text-[10px] text-slate-600 font-bold uppercase tracking-widest pt-4">
+                <span>International Hub ID: 114-564</span>
+                <span class="flex items-center gap-1">Verified <i data-lucide="check-circle" class="w-3 h-3 text-sky-500"></i></span>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Star Background
-        const layer = document.getElementById('star-layer');
-        for (let i = 0; i < 150; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            const size = Math.random() * 2.5 + 1;
-            s.style.width = s.style.height = `${size}px`;
-            s.style.left = `${Math.random() * 100}%`;
-            s.style.top = `${Math.random() * 100}%`;
-            s.style.setProperty('--d', `${Math.random() * 4 + 2}s`);
-            layer.appendChild(s);
-        }
-
-        // Animated Moons (generated after reveal)
-        function generateMoons() {
-            for(let i=0; i<30; i++) {
-                const m = document.createElement('div');
-                m.className = 'moon-particle'; m.innerHTML = '🌙';
-                m.style.left = `${Math.random() * 90}%`;
-                m.style.bottom = `${Math.random() * 100 + 10}vh`; // Start scattered
-                m.style.setProperty('--d', `${Math.random() * 15 + 10}s`);
-                m.style.animationDelay = `${Math.random() * 5}s`;
-                document.body.appendChild(m);
-            }
-        }
-
-        // function to reveal the page with amazing effects
-        function revealPage() {
-            const btn = document.getElementById('reveal-btn');
-            const container = document.querySelector('.container');
-            
-            btn.classList.add('clicked');
-            
-            // Create amazing explosion effect
-            triggerExplosion();
-            
-            setTimeout(() => {
-                btn.style.display = 'none';
-                document.body.classList.add('revealed');
-                generateMoons();
-                // Smooth scroll to top just in case
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }, 500); // sync with btn animation
-        }
-
-        // Kharafi Explosion Effect
-        function triggerExplosion() {
-            const container = document.getElementById('explosion-container');
-            const btn = document.getElementById('reveal-btn');
-            const rect = btn.getBoundingClientRect();
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
-            
-            const numParticles = 150;
-            for(let i=0; i<numParticles; i++) {
-                const p = document.createElement('div');
-                p.className = 'explosion-particle';
-                
-                // Content: Moon or Star or Crescent
-                const r = Math.random();
-                if(r < 0.4) {
-                    p.innerHTML = '🌙';
-                    p.style.fontSize = `${Math.random()*1.5 + 0.8}rem`;
-                    p.style.color = 'var(--soft-gold)';
-                } else if(r < 0.7) {
-                    p.innerHTML = '✨';
-                    p.style.fontSize = `${Math.random()*1 + 1}rem`;
-                    p.style.color = 'var(--gold)';
-                } else {
-                    p.innerHTML = '🔸';
-                    p.style.fontSize = `${Math.random()*0.8 + 0.6}rem`;
-                    p.style.color = 'white';
-                }
-
-                // Random animation properties
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 300 + 100; // Final distance from center
-                const duration = Math.random() * 1 + 0.5; // Final time
-                
-                // Set custom properties for CSS
-                p.style.left = `${startX}px`;
-                p.style.top = `${startY}px`;
-                p.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
-                p.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
-                p.style.setProperty('--r', `${Math.random()*720 - 360}deg`); // Initial rotation
-                p.style.setProperty('--s', `${Math.random()*2 + 1}`); // Final scale
-                p.style.setProperty('--d', `${duration}s`);
-                p.style.animationDelay = `${Math.random() * 0.1}s`;
-
-                container.appendChild(p);
-                
-                // Remove particle after animation ends
-                setTimeout(() => p.remove(), duration * 1000 + 100);
-            }
-        }
-
-        // WhatsApp Sending function
-        function sendToWhatsApp() {
-            const name = document.getElementById('userName').value.trim();
-            const text = document.getElementById('userText').value.trim();
-            
-            if(!name || !text) {
-                alert("فضلاً اكتب اسمك ورسالتك قبل الإرسال يا غالي 🌹");
-                return;
-            }
-
-            // ==============================================
-            // 🚨 هام جداً يا أحمد خالد: قم بتغيير هذا الرقم لرقمك الحقيقي
-            // يجب أن يبدأ بكود الدولة (مثال لمصر: 201xxxxxxxxx) بدون علامة +
-            // ==============================================
-            const phoneNumber = "201145646515"; 
-            
-            const whatsappMessage = `*تهنئة عيد الفطر* 🌙✨%0A%0A*من:* ${name}%0A*الرسالة:* ${text}`;
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-            window.open(whatsappUrl, '_blank');
-        }
+        // تهيئة الأيقونات
+        lucide.createIcons();
     </script>
 </body>
-        </html>
+                    </html>
